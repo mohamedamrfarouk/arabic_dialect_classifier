@@ -13,11 +13,7 @@ import matplotlib.pyplot as plt
 import string
 from cleaning_preprocessing import *
 
-
-# testing_padded = pad_sequences(testing_sequences, maxlen=max_length, padding=padding_type, truncating=trunc_type)
 def predict_the_dialect(text):
-
-    
     loaded_model = tf.keras.models.load_model('F:\dialect classifier project for AIM\deployment\models\deep_learning_model.h5')
     clean_text = clean_the_text(text)
     tokenizerr = load_tokenizer(r'F:\dialect classifier project for AIM\deployment\models\tokenizer.pickle')
@@ -38,9 +34,8 @@ def hello_world():
 @app.route('/',methods=['POST'])
 def predict():
     text = request.form.get('arabic_text')
-    prediction ="the dilact is: " + predict_the_dialect(text)   
-    print(prediction) 
-    return prediction
+    pred = predict_the_dialect(text)   
+    return render_template('index.html' , prediction = pred) 
 
 
 if __name__ == '__main__':
